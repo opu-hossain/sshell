@@ -1,33 +1,20 @@
 #include "../include/shell.h"
 
 char **parse_line(char *line) {
-  int bufsize = MAX_ARGS;
-  int position = 0;
-  char **tokens = malloc(bufsize * sizeof(char *));
-  char *token;
-
-  if (!tokens) {
-    fprintf(stderr, "Allocation error\n");
-    exit(EXIT_FAILURE);
+  char **args = malloc(MAX_ARGS * sizeof(char *));
+  if (args == NULL) {
+    perror("malloc");
+    exit(1);
   }
 
-  token = strtok(line, " \t\r\n");
-  while (token != NULL) {
-    tokens[position] = token;
-    position++;
+  int count = 0;
+  char *token = strtok(line, " \t");
 
-    if (position >= bufsize) {
-      bufsize += MAX_ARGS;
-      tokens = realloc(tokens, bufsize * sizeof(char *));
-      if (!tokens) {
-        fprintf(stderr, "Allocation error\n");
-        exit(EXIT_FAILURE);
-      }
-    }
-
-    token = strtok(NULL, " \t\r\n");
+  while (token != NULL && count < MAX_ARGS - 1) {
+    args[count++] = token;
+    token = strtok(NULL, " \t");
   }
+  args[count] = NULL;
 
-  tokens[position] = NULL;
-  return tokens;
+  return args;
 }

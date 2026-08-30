@@ -6,7 +6,7 @@
 #define INCLUDE_FOLDER "include/"
 
 static const char *sources[] = {
-    "main.c", "input.c", "parser.c", "builtins.c", "executor.c",
+    "main.c", "reader.c", "parser.c", "builtins.c", "executor.c",
 };
 
 int main(int argc, char **argv) {

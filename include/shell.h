@@ -9,16 +9,17 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define MAX_INPUT 1024
 #define MAX_ARGS 64
-#define MAX_PATH 256
 
-void shell_loop(void);
 char *read_line(void);
 char **parse_line(char *line);
-int execute_command(char **args);
-int execute_builtin(char **args);
-int launch_process(char **args);
-void handle_signlas(int sig);
+
+int run_builtin(char **args, int *should_continue);
+
+int builtin_cd(char **args);
+int builtin_exit(char **args);
+int builtin_help(char **args);
+
+int execute(char **args);
 
 #endif
