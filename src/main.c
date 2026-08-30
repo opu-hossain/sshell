@@ -2,7 +2,7 @@
 
 int main(void) {
   char *line;
-  char **args;
+  command_t *cmd;
   int running = 1;
 
   while (running) {
@@ -15,14 +15,14 @@ int main(void) {
       break;
     }
 
-    args = parse_line(line);
+    cmd = parse_line(line);
 
-    if (args[0] != NULL) {
-      running = execute(args);
+    if (cmd->argv[0] != NULL) {
+      running = execute(cmd);
     }
 
     free(line);
-    free(args);
+    free_command(cmd);
   }
 
   return 0;
